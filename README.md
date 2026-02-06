@@ -1,4 +1,4 @@
-# Urban Grocers – API Testing Project 🛒🔌
+# Urban Grocers – API Testing Project 
 
 This repository contains API testing artifacts developed during a QA Bootcamp project for **Urban Grocers**.  
 The main goal of this project is to validate backend business rules, input validation, and delivery logic through REST API testing.
@@ -7,7 +7,7 @@ All tests were executed using **Postman**, with a focus on real-world scenarios 
 
 ---
 
-## 📌 Project Scope
+## Project Scope
 
 The API testing scope includes:
 
@@ -18,7 +18,7 @@ The API testing scope includes:
 
 ---
 
-## 🧪 Test Cases
+## Test Cases
 
 - A complete set of API test cases is available in an **Excel file**, which contains:
   - Detailed test scenarios
@@ -30,7 +30,7 @@ This Excel file is provided for full traceability and reference to the executed 
 
 ---
 
-## 🐞 Bug Reports
+## Bug Reports
 
 Identified issues were documented and organized in the **bug-reports** folder.
 
@@ -48,7 +48,7 @@ are attached for each issue.
 
 ---
 
-## 🛠 Tools & Technologies
+## Tools & Technologies
 
 - REST API testing
 - Postman
@@ -59,7 +59,7 @@ are attached for each issue.
 
 ---
 
-## 📎 Notes
+## Notes
 
 - This repository showcases practical API testing skills and QA documentation standards.
 - The combination of Excel-based test cases and Markdown bug reports reflects a real QA workflow commonly used in professional environments.
