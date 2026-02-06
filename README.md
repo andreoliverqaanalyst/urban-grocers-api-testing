@@ -1,103 +1,76 @@
-# API Test Cases — Urban Grocers
+# Urban Grocers – API Testing Project
 
-This document presents a selected set of **manual API test cases** executed
-for the **Urban Grocers** application.
+This repository contains API testing artifacts developed during the QA Bootcamp, focusing on validating business rules, data integrity, and error handling for the **Urban Grocers** backend services.
 
-The test cases focus on validating HTTP methods, status codes, request/response
-payloads, and error handling using REST principles.
-
-Only a representative subset of test cases is included for portfolio purposes.
+The tests were executed using REST API requests, validating responses, status codes, and business logic related to order creation, delivery availability, and pricing calculations.
 
 ---
 
-## TC-API-001 — Retrieve product list successfully (GET)
+## 🔍 Scope of Testing
 
-**Endpoint**  
-`GET /api/v1/products`
-
-**Preconditions**
-- API is available
-- Valid base URL is configured
-
-**Steps**
-1. Send a GET request to the products endpoint.
-2. Observe the response status code and response body.
-
-**Expected Result**
-- Status code **200 OK** is returned.
-- Response body contains a list of products.
-- Product attributes are returned in JSON format.
+- Product quantity validation
+- Delivery availability rules
+- Delivery cost calculation based on weight and service type
+- API error handling and response consistency
 
 ---
 
-## TC-API-002 — Create a new order successfully (POST)
+## Selected Bug Reports
 
-**Endpoint**  
-`POST /api/v1/orders`
-
-**Preconditions**
-- API is available
-- Valid request payload is prepared
-
-**Steps**
-1. Send a POST request with valid order data in the request body.
-2. Observe the response.
-
-**Expected Result**
-- Status code **201 Created** is returned.
-- The order is created successfully.
-- The response body contains the created order details.
+Below are three representative API bugs identified during the testing process. These issues were selected to demonstrate critical validation gaps, business rule violations, and backend error handling problems.
 
 ---
 
-## TC-API-003 — Validate error when creating order with invalid payload (POST)
+###  BUG-001 – Empty string in `quantity` parameter causes 500 error (integer overflow)
 
-**Endpoint**  
-`POST /api/v1/orders`
+**Description:**  
+When an empty string is sent in the `quantity` parameter while adding a product to a kit via API, the system returns an unexpected **500 Internal Server Error**, indicating an integer overflow instead of handling the input validation properly.
 
-**Preconditions**
-- API is available
-- Invalid or incomplete request payload is prepared
+**Impact:**  
+This issue reveals missing input validation and can cause system instability or crashes when invalid data is submitted.
 
-**Steps**
-1. Send a POST request with invalid data in the request body.
-2. Observe the response status code and message.
-
-**Expected Result**
-- Status code **400 Bad Request** is returned.
-- An error message is displayed indicating invalid input.
+📎 *Evidence (request, response, and logs) is attached in Jira.*
 
 ---
 
-## TC-API-004 — Retrieve non-existing resource (GET)
+### BUG-002 – API returns `"isItPossibleToDeliver": true` outside service operating hours
 
-**Endpoint**  
-`GET /api/v1/products/{id}`
+**Description:**  
+The API incorrectly returns `"isItPossibleToDeliver": true` for delivery requests made outside the service’s operating hours.
 
-**Preconditions**
-- API is available
-- A non-existing product ID is used
+**Impact:**  
+This behavior violates business rules and may allow users to place orders that cannot be fulfilled, causing operational and customer experience issues.
 
-**Steps**
-1. Send a GET request using a non-existing product ID.
-2. Observe the response.
-
-**Expected Result**
-- Status code **404 Not Found** is returned.
-- The response indicates that the resource does not exist.
+📎 *Evidence (request and response payloads) is attached in Jira.*
 
 ---
 
-## Tools & Techniques
+### BUG-003 – `clientDeliveryCost` returned as 0 for Order and Go when weight exceeds 6kg
+
+**Description:**  
+For **Order and Go** service type, when the total order weight exceeds **6kg**, the API incorrectly returns `clientDeliveryCost` as **0**, instead of applying the correct delivery fee.
+
+**Impact:**  
+This bug can result in financial loss due to incorrect pricing calculation.
+
+📎 *Evidence (request scenarios and API responses) is attached in Jira.*
+
+---
+
+## 🛠 Tools & Technologies
+
 - REST API testing
-- HTTP methods (GET, POST)
-- Status code validation
-- Request and response body validation
-- Manual API testing (Postman)
+- JSON
+- HTTP status code validation
+- Business rules validation
+- Jira (bug tracking and evidence management)
 
 ---
 
-## 📎 Additional Documentation
-The complete set of API test cases was originally documented in spreadsheet
-format during the project execution and is included in this repository
-for reference.
+## 📌 Notes
+
+- All bugs were reported and tracked in Jira.
+- Test evidence, including request/response payloads, screenshots, and logs, is available as Jira attachments.
+- This repository highlights real-world API testing scenarios and common backend validation issues.
+
+---
